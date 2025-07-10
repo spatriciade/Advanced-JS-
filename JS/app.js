@@ -130,38 +130,177 @@
 //   console.log(`Hello ${name}`);
 // }, 2000);
 
-let countDownHell = (count) => {
-  let start = 5;
-  setTimeout(() => {
-    console.log(start--);
-     setTimeout(() => {
-    console.log(start--);
-     setTimeout(() => {
-    console.log(start--);
-     setTimeout(() => {
-    console.log(start--);
-     setTimeout(() => {
-    console.log(start--); setTimeout(() => {
-    console.log("Running!");
-  }, 1000);
-  }, 1000);
-  }, 1000);
-  }, 1000);
-  }, 1000);
-  }, 1000);
-};
+// let countDownHell = (count) => {
+//   let start = 5;
+//   setTimeout(() => {
+//     console.log(start--);
+//     setTimeout(() => {
+//       console.log(start--);
+//       setTimeout(() => {
+//         console.log(start--);
+//         setTimeout(() => {
+//           console.log(start--);
+//           setTimeout(() => {
+//             console.log(start--);
+//             setTimeout(() => {
+//               console.log("Running!");
+//             }, 1000);
+//           }, 1000);
+//         }, 1000);
+//       }, 1000);
+//     }, 1000);
+//   }, 1000);
+// };
 // countDownHell(); // 5 4 3 2 1 Running!
 
-let dointSomething = (done) => {
-    new Promise((resolve, reject) => {
-        if (done) {
-            resolve(console.log("success"))
-            
-        } else {
-            reject(err.message)
-        }
+// let dointSomething = (done) => {
+//     new Promise((resolve, reject) => {
+//         if (done) {
+//             resolve(console.log("success"))
 
+//         } else {
+//             reject(err.message)
+//         }
+
+// });
+// };
+// dointSomething(false)
+
+// const onResolved = (id) => {
+//   setTimeout(console.log, 0, id, "resolved");
+// };
+// const onRejected = (id) => {
+//   setTimeout(console.log, 0, id, "rejected");
+// };
+
+// let promise = fetch("/API/movies");
+// let promise2 = promise.then(onResolved);
+// let promise3 = promise2.then(onResolved);
+
+// let promise1 = new Promise((resolve, reject) => {
+//   setTimeout(resolve, 1000);
+// });
+// let promise2 = new Promise((resolve, reject) => {
+//   setTimeout(reject, 2000);
+// });
+// promise1.then(
+//   () => onResolved("promise1"),
+//   () => onRejected("promise1")
+// );
+// promise2.then(
+//   () => onResolved("promise2"),
+//   () => onRejected("promise2")
+// );
+
+// let promise = new Promise((resolve, reject) => {
+//   setTimeout(reject(new Error({message:"Something went wrong"})), 1000);
+// })
+// promise.then(() => {
+//   alert("promise solved")
+// }).catch((error) => console.log(error.message));
+
+//Async/await
+
+// async function getNumber(number){
+//   console.log(number);
+
+// }
+
+// const getNumber = async function (number){
+//   console.log(number);
+// }
+// const getNumber = async(number)=>{
+//   console.log(number);
+//   return 3;
+
+// };
+// getNumber(1).then(console.log);
+// console.log(2);
+// const count = async ()=> {
+// console.log(2);
+// await null;
+// console.log(4);}
+// console.log(1);
+// count();
+// console.log(3);
+
+//Networking
+
+window.addEventListener("load", () => {
+  //obtener todos los post
+  //Sitio web JSN Server
+  //https://jsonplaceholder.typicode.com/
+  //https://jsonplaceholder.typicode.com/posts
+  let URL = "https://jsonplaceholder.typicode.com/posts";
+  //   fetch(URL)
+  //     .then((response) => response.json())
+  //     .then((json) => console.log("trying GET:", json));
+  //obtener unpost especifico
+  //   fetch(URL + "/2")
+  //     .then((response) => response.json())
+  //     .then((json) => console.log("trying GET:", json));
+  //   //insertar un nuevo post
+  //   fetch(URL, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       title: "foo",
+  //       body: "bar",
+  //       userId: 1,
+  //     }),
+  //     headers: {
+  //       "content-type": "application/json; charset=UTF-8",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((json) => console.log("trying POST:", json));
+  //     //actualizar un post
+  //     fetch(URL + "/2", {
+  //       method: "PUT",
+  //       body: JSON.stringify({
+  //         id: 2,
+  //       title: "foo",
+  //       body: "bar",
+  //       userId: 1,
+  //     }),
+  //     headers: {
+  //       "content-type": "application/json; charset=UTF-8",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((json) => console.log("trying PUT:", json));
+  //     //eliminar un post
+  //     fetch(URL + "/2", {
+  //       method: "DELETE",
+  //     })
+  //     .then((response) => response.json())
+  //     .then((json) => console.log("trying DELETE:", json));
+
+  //profundizando en el objeto respuesta
+  //   fetch(URL + "/1").then((response) => {
+  //     console.log(response);
+  //     console.log(response.status);
+  //     console.log(response.statusText);
+  //     console.log(response.ok); // true si el status es 200-299
+  //     //response.json())
+  //     //Respuestas alternativas
+  //     response.text().then((data) => {
+  //       console.log(JSON.parse(data)); // devuelve el texto de la respuesta
+  //     });
+  //     //.then((json) => console.log("trying GET:", json));
+  //   });
+  fetch(URL + "/1")
+    .then((response) => {
+      if (
+        response.ok &&
+        response.headers.get("content-type") ===
+          "application/json; charset=UTF-8"
+      ) {
+        return response.json();
+      } else {
+        console.log(response.headers.get("content-type"));
+        throw new Error(`unexpected status ${response.status} content type`);
+      }
+    })
+    .then((data) => console.log(data))
+    .catch((error) => console.log(error));
 });
-};
-dointSomething(true)
-  
